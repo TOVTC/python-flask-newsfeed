@@ -1,3 +1,9 @@
+# don't forget to start a virtual environment before installing dependencies so they aren't installed globally
+# make sure to run commands in Powershell
+# .\venv\Scripts\activate
+# your powershell command line should be prefixed with (venv)
+# if you get an error, it might be because your execution policy is restricted in Powershell, run as administrator and set the execution policy first
+
 # import Flask function
 from flask import Flask
 # you can import home directly from the routes package because the __init__.py file imported and renamed the blueprint

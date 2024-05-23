@@ -1,11 +1,19 @@
 <article class="post">
   <div class="title">
     <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
-    <span>({{post.post_url}})</span>
+    <!-- use |format_url to apply custom formatting util (pass post.post_url as parameter to format_url())) -->
+    <span>({{post.post_url|format_url}})</span>
   </div>
   <div class="meta">
-    {{post.vote_count}} point(s) by {{post.user.username}} on {{post.created_at}}
+    <!-- same for format_date() here -->
+    <!-- however, format.plural is a bit different -->
+    <!-- {{post.vote_count}} point(s) by {{post.user.username}} on {{post.created_at|format_date}} -->
+    <!-- the first post.vote_count displays the number as is, the second one passes itself into the format_plural() util -->
+    {{post.vote_count}} {{post.vote_count|format_plural('point')}} by {{post.user.username}} on {{post.created_at|format_date}}
     |
-    <a href="/post/{{post.id}}">{{post.comments|length}} comment(s)</a>
+    <!-- similar strategy to format plural for comments here except there are multiple pipe | characters -->
+    <!-- post.comments|length is the syntax for printing the length of an array -->
+    <!-- <a href="/post/{{post.id}}">{{post.comments|length}} comment(s)</a> -->
+    <a href="/post/{{post.id}}">{{post.comments|length}} {{post.comments|length|format_plural('comment')}}</a>
   </div>
 </article>

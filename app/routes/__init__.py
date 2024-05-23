@@ -3,3 +3,4 @@
 # then, import the bp object but rename it as home
 from .home import bp as home
 from .dashboard import bp as dashboard
+from .api import bp as api

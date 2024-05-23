@@ -1,6 +1,6 @@
 # in the app/routes directory, routes is considered a package because it contains __init__.py
 # home.py is considered a module that belongs to the routes package
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, redirect
 from app.models import Post
 from app.db import get_db
 
@@ -26,12 +26,15 @@ def index():
     #       .all()
     #     )
 
-    # pass the retrieved posts in as an argument to the template
-    return render_template('homepage.html', posts=posts)
+    # pass the retrieved posts in as an argument to the template and pass the loggedIn session property
+    return render_template('homepage.html', posts=posts, loggedIn=session.get('loggedIn'))
 
 @bp.route('/login')
 def login():
-    return render_template('login.html')
+    # not logged in yet
+    if session.get('loggedIn') is None:
+        return render_template('login.html')
+    return redirect('/dashboard')
 
 # single() captures the id parameter in the route
 @bp.route('/post/<id>')
@@ -41,4 +44,4 @@ def single(id):
     post = db.query(Post).filter(Post.id == id).one()
 
     # render single post template
-    return render_template('single-post.html', post=post)
+    return render_template('single-post.html', post=post, loggedIn=session.get('loggedIn'))

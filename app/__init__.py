@@ -12,7 +12,7 @@ from flask import Flask
 # you can import home directly from the routes package because the __init__.py file imported and renamed the blueprint
 # otherwise it would be from app.routes.home import bp as home
 # you can also add additional modules to import as a list
-from app.routes import home, dashboard
+from app.routes import home, dashboard, api
 from app.db import init_db
 from app.utils import filters
 
@@ -42,6 +42,7 @@ def create_app(test_config=None):
     # register imported routes
     app.register_blueprint(home)
     app.register_blueprint(dashboard)
+    app.register_blueprint(api)
 
     # call the init_db() function when the app is ready
     # make sure to pass the app in as an argument so connections can be closed correctly
